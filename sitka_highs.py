@@ -12,10 +12,12 @@ with open(filename) as f:
 #     print(index, column_header)
 
     # Чтение максимальных температур и дат из файла.
-    dates, highs = [], []
+    dates, highs, lows = [], [], []
     for row in reader:
         current_date = datetime.strptime(row[2], "%Y-%m-%d")
         high = int(row[5])
+        low = int(row[6])
+        lows.append(low)
         dates.append(current_date)
         highs.append(high)
 
@@ -23,9 +25,10 @@ with open(filename) as f:
 plt.style.use('classic')
 fig, ax = plt.subplots()
 ax.plot(dates, highs, c='red')
+ax.plot(dates, lows, c='blue')
 
 # Форматирование диаграммы.
-plt.title("Daily high temperatures - 2021", fontsize=24)
+plt.title("Daily high and low temperatures - 2021", fontsize=24)
 plt.xlabel('', fontsize=16)
 
 plt.show()
